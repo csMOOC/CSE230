@@ -1,0 +1,22 @@
+Build-type:    Simple
+Cabal-version: >= 1.18
+Name:          Hw1
+Version:       1.0
+
+Flag grading
+  Default: False
+
+Library
+  Default-Language: Haskell2010
+
+  Build-Depends:
+    base       >= 4   && < 5
+    , GLFW     >= 0.5 && < 0.6
+    , old-time >= 1.0 && < 2.0
+    , OpenGL   >= 2.0 && < 3.0
+
+  Exposed-Modules: Hw1
+
+  Other-Modules: Play, SOE, XMLTypes
+
+  Hs-Source-Dirs: ., SOE/src

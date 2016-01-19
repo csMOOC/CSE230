@@ -1,0 +1,14 @@
+# resolver: lts-3.2
+resolver: nightly-2015-09-24
+
+extra-deps:
+- deepseq-1.4.1.1
+- GLFW-0.5.2.4
+- GLURaw-1.5.0.3
+- half-0.2.2.2
+- ObjectName-1.1.0.1
+- OpenGL-2.13.2.1
+- OpenGLRaw-2.6.1.1
+
+packages:
+- .

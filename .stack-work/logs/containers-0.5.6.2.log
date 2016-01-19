@@ -1,0 +1,111 @@
+Configuring containers-0.5.6.2...
+Building containers-0.5.6.2...
+Preprocessing library containers-0.5.6.2...
+[ 1 of 18] Compiling Data.Sequence    ( Data/Sequence.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Sequence.o )
+
+Data/Sequence.hs:154:1: Warning:
+    The import of ‘Applicative, <$>’
+    from module ‘Control.Applicative’ is redundant
+
+Data/Sequence.hs:159:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+
+Data/Sequence.hs:161:1: Warning:
+    The import of ‘foldMap’ from module ‘Data.Foldable’ is redundant
+[ 2 of 18] Compiling Data.Tree        ( Data/Tree.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Tree.o )
+
+Data/Tree.hs:37:1: Warning:
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()
+
+Data/Tree.hs:39:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+
+Data/Tree.hs:42:1: Warning:
+    The import of ‘Foldable, foldMap’
+    from module ‘Data.Foldable’ is redundant
+
+Data/Tree.hs:43:1: Warning:
+    The import of ‘Data.Traversable’ is redundant
+      except perhaps to import instances from ‘Data.Traversable’
+    To import instances alone, use: import Data.Traversable()
+[ 3 of 18] Compiling Data.Graph       ( Data/Graph.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Graph.o )
+
+Data/Graph.hs:78:1: Warning:
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()
+[ 4 of 18] Compiling Data.Utils.StrictPair ( Data/Utils/StrictPair.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Utils/StrictPair.o )
+[ 5 of 18] Compiling Data.Utils.StrictFold ( Data/Utils/StrictFold.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Utils/StrictFold.o )
+[ 6 of 18] Compiling Data.Set.Base    ( Data/Set/Base.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Set/Base.o )
+
+Data/Set/Base.hs:195:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+[ 7 of 18] Compiling Data.Map.Base    ( Data/Map/Base.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Map/Base.o )
+
+Data/Map/Base.hs:273:1: Warning:
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()
+
+Data/Map/Base.hs:277:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+
+Data/Map/Base.hs:278:1: Warning:
+    The import of ‘Data.Traversable’ is redundant
+      except perhaps to import instances from ‘Data.Traversable’
+    To import instances alone, use: import Data.Traversable()
+[ 8 of 18] Compiling Data.Map.Lazy    ( Data/Map/Lazy.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Map/Lazy.o )
+[ 9 of 18] Compiling Data.Map.Strict  ( Data/Map/Strict.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Map/Strict.o )
+[10 of 18] Compiling Data.Map         ( Data/Map.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Map.o )
+[11 of 18] Compiling Data.Set         ( Data/Set.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Set.o )
+[12 of 18] Compiling Data.Utils.BitUtil ( Data/Utils/BitUtil.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/Utils/BitUtil.o )
+[13 of 18] Compiling Data.IntSet.Base ( Data/IntSet/Base.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntSet/Base.o )
+
+Data/IntSet/Base.hs:172:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+
+Data/IntSet/Base.hs:174:1: Warning:
+    The import of ‘Data.Word’ is redundant
+      except perhaps to import instances from ‘Data.Word’
+    To import instances alone, use: import Data.Word()
+[14 of 18] Compiling Data.IntSet      ( Data/IntSet.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntSet.o )
+[15 of 18] Compiling Data.IntMap.Base ( Data/IntMap/Base.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntMap/Base.o )
+
+Data/IntMap/Base.hs:219:1: Warning:
+    The import of ‘Control.Applicative’ is redundant
+      except perhaps to import instances from ‘Control.Applicative’
+    To import instances alone, use: import Control.Applicative()
+
+Data/IntMap/Base.hs:225:1: Warning:
+    The import of ‘Data.Monoid’ is redundant
+      except perhaps to import instances from ‘Data.Monoid’
+    To import instances alone, use: import Data.Monoid()
+
+Data/IntMap/Base.hs:226:1: Warning:
+    The import of ‘Data.Traversable’ is redundant
+      except perhaps to import instances from ‘Data.Traversable’
+    To import instances alone, use: import Data.Traversable()
+
+Data/IntMap/Base.hs:228:1: Warning:
+    The import of ‘Data.Word’ is redundant
+      except perhaps to import instances from ‘Data.Word’
+    To import instances alone, use: import Data.Word()
+[16 of 18] Compiling Data.IntMap.Strict ( Data/IntMap/Strict.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntMap/Strict.o )
+[17 of 18] Compiling Data.IntMap.Lazy ( Data/IntMap/Lazy.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntMap/Lazy.o )
+[18 of 18] Compiling Data.IntMap      ( Data/IntMap.hs, .stack-work/dist/x86_64-osx/Cabal-1.22.4.0/build/Data/IntMap.o )
+In-place registering containers-0.5.6.2...
+Installing library in
+/Users/ganzhenchao/Workspaces/CSE230/hw1/.stack-work/install/x86_64-osx/nightly-2015-09-24/7.10.2/lib/x86_64-osx-ghc-7.10.2/containers-0.5.6.2-LKCPrTJwOTOLk4OU37YmeN
+Registering containers-0.5.6.2...
