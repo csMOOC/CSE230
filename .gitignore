@@ -1,6 +1,6 @@
 hw1/SOE
 hw1/.stack-work/
-
+.stack-work
 hw1/install/
 hw1/logs/
 *.html
