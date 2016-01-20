@@ -384,8 +384,28 @@ myMap f = foldr ((:) . f) []
 -- yields the HTML speciﬁed above (but with no whitespace except what's
 -- in the textual data in the original XML).
 
+-- ~~~~
+-- data SimpleXML =
+--    PCDATA String
+--  | Element ElementName [SimpleXML]
+--  deriving Show
+
+process :: [SimpleXML] -> Int -> [SimpleXML]
+process [] _ = []
+process ((Element "TITLE" content):xs) level = (Element ("h" ++ show level) content) : process xs (level+1)
+process ((Element "PERSONAE" content):xs) _ = [Element "h2" [PCDATA "Dramatis Personae"]] ++ process content 3 ++ process xs 2
+process ((Element "PERSONA" content):xs) _ = content ++ [PCDATA "<br/>"] ++ process xs 3
+process ((Element "ACT" content):xs) _ = process content 2 ++ process xs 2
+process ((Element "SCENE" content):xs) _ = process content 3 ++ process xs 2
+process ((Element "LINE" content):xs) _ = content ++ [PCDATA "<br/>"] ++ process xs 3
+process ((Element "SPEAKER" content):xs) _ = [Element "b" content] ++ [PCDATA "<br/>"] ++ process xs 2
+process ((Element "SPEECH" content):xs) _ = process content 3 ++ process xs 3
+
 formatPlay :: SimpleXML -> SimpleXML
-formatPlay xml = PCDATA "WRITE ME!"
+formatPlay (Element "PLAY" xs) = Element "html" [Element "body" (process xs 1)]
+
+--convertTo $ PCDATA x
+--formatPlay (Element name xs) = Element (map formatPlay xs)
 
 -- The main action that we've provided below will use your function to
 -- generate a ﬁle `dream.html` from the sample play. The contents of this

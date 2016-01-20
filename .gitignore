@@ -1,4 +1,9 @@
 hw1/SOE
+hw1/.stack-work/
+
+hw1/install/
+hw1/logs/
+*.html
 
 .DS_Store
 
