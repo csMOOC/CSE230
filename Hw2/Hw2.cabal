@@ -1,0 +1,19 @@
+Build-type:    Simple
+Cabal-version: >= 1.18
+Name:          Hw2
+Version:       1.0
+
+Flag grading
+  Default: False
+
+Library
+  Default-Language: Haskell2010
+
+  Build-Depends:  base       >= 4   && < 5
+                , parsec
+                , containers
+                , mtl
+
+  Exposed-Modules: Hw2
+
+  Hs-Source-Dirs: src 
