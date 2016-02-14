@@ -86,7 +86,11 @@ data BST k v = Emp
 
 -- Define a `delete` function for BSTs of this type:
 
+--test cases
 tree1 = Bind 8 1 (Bind 5 4 Emp Emp) (Bind 10 9 Emp Emp)
+tree2 = Bind 5 1 (Bind 2 2 (Bind (-4) 3 Emp Emp) (Bind 3 4 Emp Emp)) (Bind 18 5 Emp Emp)
+tree3 = Bind 5 1 Emp (Bind 18 2 Emp (Bind 21 3 (Bind 19 4 Emp Emp) (Bind 25 5 Emp Emp)))
+tree4 = Bind 5 1 Emp (Bind 12 2 (Bind 9 3 Emp Emp) (Bind 21 4 (Bind 19 5 Emp Emp) (Bind 25 6 Emp Emp)))
 
 delete :: (Ord k) => k -> BST k v -> BST k v
 delete k Emp = Emp
