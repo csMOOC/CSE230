@@ -112,7 +112,8 @@ minimumEle ( Bind k v Emp _ ) = (k, v)
 minimumEle ( Bind k v t1  _ ) = minimumEle t1
 
 clean :: (Ord k) => BST k v -> BST k v
-clean ( Bind k v Emp _ ) = Emp
+clean Emp = Emp
+clean ( Bind k v Emp t2 ) = t2
 clean ( Bind k v t1 t2 ) = Bind k v (clean t1) t2
 
 --TEST =
