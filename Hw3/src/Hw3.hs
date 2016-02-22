@@ -760,7 +760,7 @@ prop_Multiplier_Correct xs ys =
 
 bitMultiplier :: Bool -> [Signal] -> [Signal]
 bitMultiplier True xs =  xs
-bitMultiplier False xs = take (length xs) (repeat low)
+bitMultiplier False xs = replicate (length xs) low
 
 multiplier :: ([Signal], [Signal]) -> [Signal]
 multiplier (_, []) = []
