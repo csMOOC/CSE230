@@ -386,10 +386,24 @@ genBSTop  = frequency [(5, genBSTadd), (1, genBSTdel)]
 -- (a) Insertion
 -- -------------
 
+bstlistAdd :: (Ord k) => k -> v -> [(k, v)] -> [(k, v)]
+bstlistAdd k v [] = [(k, v)]
+bstlistAdd k v (x : xs)
+                    | k == (fst x) = (k, v) : xs
+                    | k <  (fst x) = (k, v) : x : xs
+                    | k >  (fst x) = x : (bstlistAdd k v xs)
+
+listtoBst :: [(k, v)] -> BST k v
+listtoBst [] = Emp
+listtoBst xs = Bind k v (listtoBst $ take mid xs) (listtoBst $ drop (mid+1) xs)
+           where mid = (length xs) `div` 2
+                 (k, v) = (!!) xs mid
+
 -- Write an insertion function
 
 bstInsert :: (Ord k) => k -> v -> BST k v -> BST k v
-bstInsert = error "TBD"
+bstInsert k v Emp = Bind k v Emp Emp
+bstInsert k v (Bind k' v' l r) = listtoBst $ bstlistAdd k v $ toBinds (Bind k' v' l r)
 
 -- such that `bstInsert k v t` inserts a key `k` with value
 -- `v` into the tree `t`. If `k` already exists in the input
@@ -408,8 +422,17 @@ prop_insert_map = forAll (listOf genBSTadd) $ \ops ->
 
 -- Write a deletion function for BSTs of this type:
 
+bstlistDelete :: (Ord k) => k -> [(k, v)] -> [(k, v)]
+bstlistDelete k [] = []
+bstlistDelete k (x : xs)
+                      | k == (fst x) = xs
+                      | k <  (fst x) = x : xs
+                      | k >  (fst x) = x : (bstlistDelete k xs)
+
+
 bstDelete :: (Ord k) => k -> BST k v -> BST k v
-bstDelete k t = error "TBD"
+bstDelete k Emp = Emp
+bstDelete k (Bind k' v' t1 t2) = listtoBst $ bstlistDelete k $ toBinds (Bind k' v' t1 t2)
 
 -- such that `bstDelete k t` removes the key `k` from the tree `t`.
 -- If `k` is absent from the input tree, then the tree is returned
@@ -440,7 +463,7 @@ isBal Emp            = True
 -- Write a balanced tree generator
 
 genBal :: Gen (BST Int Char)
-genBal = error "TBD"
+genBal = liftM ofBSTops $ listOf $ genBSTadd
 
 -- such that
 
@@ -457,8 +480,6 @@ prop_insert_bal = forAll (listOf genBSTadd) $ isBal . ofBSTops
 -- >
 prop_delete_bal ::  Property
 prop_delete_bal = forAll (listOf genBSTop) $ isBal . ofBSTops
-
-
 
 
 
