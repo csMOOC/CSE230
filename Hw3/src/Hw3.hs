@@ -700,11 +700,6 @@ test2 = probe [ ("x1", x1), ("x2",x2), ("x3",x3), ("x4",x4),
 
 -- And we can specify the correctness of the adder circuit by
 
-prop_Adder_Correct ::  [Bool] -> [Bool] -> Bool
-prop_Adder_Correct l1 l2 =
-  binary (sampleN sum) == binary l1 + binary l2
-  where sum = adder (map lift0 l1, map lift0 l2)
-
 -- Problem: Subtraction
 -- --------------------
 
@@ -715,15 +710,35 @@ prop_Adder_Correct l1 l2 =
 -- yield zero.
 
 prop_bitSubtractor_Correct ::  Signal -> [Bool] -> Bool
-prop_bitSubtractor_Correct = error "TODO"
+prop_bitSubtractor_Correct bin xs =
+  binary (sampleN out) == max 0 (binary xs - binary (sample1 bin))
+  where (out, bout) = bitSubtractor (bin, map lift0 xs)
 
 -- 2. Using the `bitAdder` circuit as a model, deﬁne a `bitSubtractor`
 -- circuit that implements this functionality and use QC to check that
 -- your behaves correctly.
 
-bitSubtractor :: (Signal, [Signal]) -> ([Signal], Signal)
-bitSubtractor = error "TODO"
+halfsub :: (Signal, Signal) -> (Signal, Signal)
+halfsub (x,y) = (sum, bout)
+  where sum   = xor2 (x, y)
+        bout  = and2 (y, xor2 (high, x))
 
+bitSubtractor :: (Signal, [Signal]) -> ([Signal], Signal)
+bitSubtractor (bin, [])   = ([], bin)
+bitSubtractor (bin, x:xs) = ((and2 (sum, xor2 (high, bout))):sums, bout)
+                                  where (sum, b)     = halfsub (x, bin)
+                                        (sums, bout) = bitSubtractor (b,xs)
+
+
+testsub1 = probe [("cin",cin), ("in1",in1), ("in2",in2), ("in3",in3), ("in4",in4),
+                  ("  s1",s1), ("s2",s2), ("s3",s3), ("s4",s4), ("c",c)]
+  where
+    cin = high
+    in1 = high
+    in2 = high
+    in3 = low
+    in4 = high
+    ([s1,s2,s3,s4], c) = bitSubtractor (cin, [in1,in2,in3,in4])
 
 -- Problem: Multiplication
 -- -----------------------
@@ -733,7 +748,9 @@ bitSubtractor = error "TODO"
 -- width as input and outputs their product.
 
 prop_Multiplier_Correct ::  [Bool] -> [Bool] -> Bool
-prop_Multiplier_Correct = error "TODO"
+prop_Multiplier_Correct xs ys =
+  binary (sampleN prod) == binary xs * binary ys
+  where prod = multiplier (map lift0 xs, map lift0 ys)
 
 -- 4. Deﬁne a `multiplier` circuit and check that it satisﬁes your
 -- speciﬁcation. (Looking at how adder is deﬁned will help with this,
@@ -741,7 +758,17 @@ prop_Multiplier_Correct = error "TODO"
 -- recursive structure should work, think about how to multiply two
 -- binary numbers on paper.)
 
+bitMultiplier :: Bool -> [Signal] -> [Signal]
+bitMultiplier True xs =  xs
+bitMultiplier False xs = take (length xs) (repeat low)
+
 multiplier :: ([Signal], [Signal]) -> [Signal]
-multiplier = error "TODO"
+multiplier (_, []) = []
+multiplier ([], _) = []
+multiplier (xs, y:ys) = adder (result, remain)
+                        where  result = bitMultiplier (sample1 y) xs
+                               remain = multiplier ((low:xs), ys)
+
+testmul1 = multiplier ([ Sig[True, False], Sig[True, False] ], [ Sig[False, False], Sig[True, False] ])
 
 -- [1]: http://www.cis.upenn.edu/~bcpierce/courses/552-2008/resources/circuits.hs
