@@ -23,6 +23,7 @@
 
 -- **Learn to read the [documentation](http://hackage.haskell.org)**
 
+{-# LANGUAGE TemplateHaskell           #-}
 {-# LANGUAGE TypeSynonymInstances      #-}
 {-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
@@ -793,3 +794,14 @@ multiplier (xs, y:ys) = adder (result, remain)
 testmul1 = multiplier ([ Sig[True, False], Sig[True, False] ], [ Sig[False, False], Sig[True, False] ])
 
 -- [1]: http://www.cis.upenn.edu/~bcpierce/courses/552-2008/resources/circuits.hs
+
+
+-- Use TemplateHaskell to generate automatic test runners
+return [] -- required for quickCheckAll and TemplateHaskell
+
+runAllTests :: IO Bool
+runAllTests = $(quickCheckAll)
+
+runAllTestsN :: Int -> IO Bool
+runAllTestsN n = $(forAllProperties) runner
+  where runner = quickCheckWithResult stdArgs { maxSuccess = n }
