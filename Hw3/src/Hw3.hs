@@ -131,9 +131,6 @@ data Statement =
 
 evalE :: (MonadState Store m, MonadError Value m) => Expression -> m Value
 
-evalOp :: Bop -> Value -> Value -> Value
-evalOp Plus (IntVal i) (IntVal j) = IntVal (i+j)
-
 evalE (Var x)       = do
                         table <- get
                         case Map.lookup x table of
