@@ -187,7 +187,7 @@ evalS (If e s1 s2)     = do
 
 evalS (Print s e)      = do
                            v <- evalE e
-                           tell $ s ++ show v
+                           tell $ s ++ show v ++ "\n"
 
 evalS (Throw e)        = do
                            v <- evalE e
