@@ -497,4 +497,100 @@ prScheme                ::  Scheme -> PP.Doc
 prScheme (Forall as t)  =   PP.text "All" PP.<+>
                             PP.hcat (PP.punctuate PP.comma (map prTVbl as))
                             PP.<> PP.text "." PP.<+> prType t
+
+
+
+
+
+eva = EV "a"
+evb = EV "b"
+evc = EV "c"
+evd = EV "d"
+
+evx = EV "x"
+evy = EV "y"
+evz = EV "z"
+
+tva = TVbl $ TV "a"
+tvb = TVbl $ TV "b"
+
+eThree = ELit (LInt 3)
+
+-- pair microtests
+
+eTup1 = EAbs evx $ (EApp eInc $ EVbl evx) `ECom` EVbl evx
+tTup1 = tArrs [TInt, TInt `TCom` TInt]
+
+eTup2 = EAbs evx $ EVbl evx `ECom` (EApp eInc $ EVbl evx)
+tTup2 = tTup1
+
+eTup3 = EAbs evx $ ((EApp eInc $ EVbl evx) `ECom` EVbl evx) `ECom` EVbl evx
+tTup3 = tArrs [TInt, (TInt `TCom` TInt) `TCom` TInt]
+
+eTup4 = EFst $ eThree `ECom` ELit (LBool False)
+tTup4 = TInt
+
+eTup5 = ESnd $ eThree `ECom` ELit (LBool False)
+tTup5 = TBool
+
+eTup6 = EAbs evx $ ELet evy (eZero `ECom` (EApp eInc $ EVbl evx)) (EVbl evx)
+tTup6 = tArrs [TInt, TInt]
+
+eTup7 = EAbs evx $ EFst (EVbl evx)
+tTup7 = tArrs [tva `TCom` tvb, tva]
+
+-- list test
+
+eList1 = ELet evx (ENil) $ ELet evy (ENil) (EVbl evx `ECom` EVbl evy)
+tList1 = (TList tva) `TCom` (TList tvb)
+
+eList2 = ECons eThree ENil
+tList2 = TList TInt
+
+eList3 = ECons eList2 ENil
+tList3 = TList tList2
+
+eList4 = EIsNil eList2
+tList4 = TBool
+
+eList5 = EDcons ENil
+tList5 = tva `TCom` TList tva
+
+-- letrec tests
+
+eZBody = eIf (EIsNil (EVbl evx))
+               ENil
+               (eIf (EIsNil (EVbl evy))
+                      ENil
+                      (ELet eva (EDcons $ EVbl evx)
+                        (ELet evb (EDcons $ EVbl evy)
+                          (ECons (EFst (EVbl eva) `ECom` EFst (EVbl evb))
+                                   (eApps [EVbl evz, ESnd (EVbl eva), ESnd (EVbl evb)])))))
+
+eZip = ERec evz
+         (EAbs evx $ EAbs evy eZBody)
+         (EVbl evz)
+tZip = tArrs [TList tva, TList tvb, TList (tva `TCom` tvb)]
+
+eFold = ERec evz
+          (EAbs eva
+            (EAbs evb
+              (EAbs evc
+                (eIf (EIsNil $ EVbl evc)
+                       (EVbl evb)
+                       (eApps [EVbl evz,
+                                 EVbl eva,
+                                 eApps [EVbl eva, EVbl evb, EFst (EDcons $ EVbl evc)],
+                                 ESnd (EDcons $ EVbl evc)])))))
+          (EVbl evz)
+tFold = tArrs [tArrs [tva, tvb, tva], tva, TList tvb, tva]
+
+ePoly = ERec
+          evz
+          (EAbs evx $ EVbl evx)
+          (eApps [EVbl evz, eThree] `ECom` eApps [EVbl evz, ELit (LBool True)])
+tPoly = TInt `TCom` TBool
+
+
+
 \end{code}
